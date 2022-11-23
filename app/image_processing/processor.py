@@ -44,5 +44,5 @@ def check_image_size(filename: str) -> None:
             brightness_pixel_val = normalized_brightness_matrix[i, j]
             # We don't need to keep pixel brightness val
             #img_dict[(i, j)] = brightness_pixel_val
-            img_string += ASCII_BY_BRIGHTNESS[int(brightness_pixel_val)]
+            img_string += ASCII_BY_BRIGHTNESS[int(brightness_pixel_val)] * 3
     print(img_string)
