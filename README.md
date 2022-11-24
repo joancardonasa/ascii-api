@@ -219,3 +219,12 @@ Anyway here's a bird:
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''XXX******ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ*********WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''':::*********ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ*********WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 ```
+
+(Original Photo by <a href="https://unsplash.com/@theblowup?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">the blowup</a> on <a href="https://unsplash.com/s/photos/high-contrast?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>)
+
+Moving forward:
+
+- The goal is to have as much detail as possible while having a relatively small output (one that doesn't need zooming out).
+- Experiment with other pixel-to-char functions.
+- Swap black and white pixels to see how it affects the results.
+- Provide a prettier UI to upload source files and preview/download results.
