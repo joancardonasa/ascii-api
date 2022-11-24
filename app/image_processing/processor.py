@@ -8,14 +8,14 @@ from PIL import Image
 logger = logging.getLogger(__name__)
 
 PIXEL_TO_CHAR_SIZE_CORRECTION = 3
-DEFAULT_TARGET_WIDTH = 80
+DEFAULT_TARGET_WIDTH = 200
 
 ASCII_BY_BRIGHTNESS = "':i+tXZ*W$" #'`^",:;Il!i~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$'
 
 RESULTDIR = 'tmp_result'
 
 
-def process_image(image: Image, target_width: float = DEFAULT_TARGET_WIDTH) -> None:
+def process_image(image: Image, target_width: int = DEFAULT_TARGET_WIDTH) -> None:
     (raw_width, raw_height) = image.width, image.height
 
     if target_width < raw_width:

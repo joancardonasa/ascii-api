@@ -22,7 +22,9 @@ def read_root():
 
 
 @app.post('/images/')
-async def create_upload_file(file: UploadFile = File(...)):
+async def create_upload_file(
+    file: UploadFile = File(...),
+    target_width: int = 160):
     file.filename = f'{uuid.uuid4()}'
     contents = await file.read()
 
@@ -36,7 +38,7 @@ async def create_upload_file(file: UploadFile = File(...)):
         error_msg = 'File is not an image file'
         raise HTTPException(status_code=400, detail=error_msg)
 
-    output_ascii_file = process_image(raw_im)
+    output_ascii_file = process_image(raw_im, target_width)
 
     # FIX: Outputs an HTML file
     return FileResponse(output_ascii_file, media_type='text/plain')
