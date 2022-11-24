@@ -11,6 +11,7 @@ from image_processing.processor import process_image
 logger = logging.getLogger(__name__)
 
 IMAGEDIR = 'tmp_images/'
+
 app = FastAPI()
 
 
@@ -35,6 +36,7 @@ async def create_upload_file(file: UploadFile = File(...)):
         error_msg = 'File is not an image file'
         raise HTTPException(status_code=400, detail=error_msg)
 
-    process_image(raw_im)
+    output_ascii_file = process_image(raw_im)
 
-    return {'filename': file.filename}
+    # FIX: Outputs an HTML file
+    return FileResponse(output_ascii_file, media_type='text/plain')
