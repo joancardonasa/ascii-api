@@ -29,16 +29,31 @@
                 </h1>
             </div>
 
-            <div class="row justify-content-md-center">
-                <form method="post" action="http://localhost:80/images" enctype="multipart/form-data" target="_self"
-                    class="input-group">
-                    <input type="file" name="file" id="inputGroupFile04" class="form-control">
-                    <button type="submit" class="btn btn-primary" id="inputGroupFileAddon04">Generate ASCII</button>
-                </form>
+            <div class="row">
+                <!-- <div class="row  justify-content-md-center">
+                    <div class="col-6">
+                        <h3 class="col-" style="font-family: 'Josefin Sans', sans-serif;">Background
+                        </h3>
+                        <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c"
+                            title="Choose your color">
+                    </div>
+                    <div class="col-6">
+                        <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c"
+                            title="Choose your color">
+                    </div>
+                </div> -->
+                <div class="row">
+                    <form method="post" action="http://localhost:80/images" enctype="multipart/form-data" target="_self"
+                        class="input-group">
+
+                        <input type="file" name="file" id="inputGroupFile04" class="form-control">
+                        <button type="submit" class="btn btn-primary" id="inputGroupFileAddon04">Generate ASCII</button>
+                    </form>
+                </div>
             </div>
 
-            <div class="row justify-content-md-center text-center" style="margin-top: 3vh;">
-                <pre class="rounded" style="font-size: 5px; justify-content: center; color: springgreen; background-color: teal;">
+            <div class="row text-center" style="margin-top: 3vh;">
+                <pre class="rounded" style="font-size: 3px; color: springgreen; background-color: teal;">
                     <div>{{ascii_content}}</div>
                 </pre>
             </div>

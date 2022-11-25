@@ -1,56 +1,16 @@
 # ascii-api
-Simple API to convert images to ASCII
+
+Simple API to convert images to ASCII built using FastAPI
+
+![Demo](docs/images/ascii_generator_result.gif)
 
 ### Notes during development
 
-#### 23/11/2022
+#### 25/11/2022
 
-##### Example:
-My initial implementation works for very simple images (think black and white `160x90` MS paint files), but not for anything else.
-
-Using the character space of `"i+tXZ*W$` and the following source image:
-
-![Test Input Image](docs/images/test.png)
-
-This is the result we achieve:
-
-```
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$WWW***WWW$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$***"""``````***$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ZZZtttZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$***```+++WWW"""ZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$WWWttt```iii"""+++WWW$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$iii```***$$$"""ZZZ$$$$$$$$$$$$ZZZtttZZZWWW$$$$$$$$$ZZZ```***$$$WWW"""+++WWW$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$***+++```"""```ZZZ$$$$$$$$$XXX```+++```ttt$$$$$$$$$ZZZ```+++WWWWWWZZZ```WWW$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$***ZZZZZZWWW$$$$$$$$$"""XXX$$$++++++$$$$$$$$$WWW***"""""""""""""""WWW$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ttt```+++```XXX$$$$$$$$$$$$$$$WWWWWWWWWWWWWWW$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$WWW************+++```XXXWWW$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$***+++```"""""""""""""""```""""""iii***$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+++"""ZZZWWWWWWWWWWWWWWW*********ttt```ZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ZZZZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ttt```WWW$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$WWW"""ZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$iiiZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$WWWWWW$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
-```
-
-##### Improvements:
-
-As it is right now, the things that need more work are:
-
-- A way to formalize output. Visualizing the terminal output generally does not work and copying the result to a text editor and using word wrap is clunky. The proposal is to send the result to a file with a max width/height, for viewing purposes.
-- Again, regarding the width/height of the resulting image, find a better way of resizing any file that comes in. Perhaps this needs two steps: One to make it smaller and easier to deal with, and one to output the result to something that makes sense. Filtering methods are important to take into account.
-- Images are currently stretched, because of the pixel/char size discrepancy. We need a way to make char representations more "square". Right now each character is written 3 times to compensate (`255` becomes `$` becomes `$$$`).
-- Experiment with pixel-to-char conversions. The current one is `(R+G+B)/3`, but perhaps it's not the best one.
-- Determine how to read file colors. I believe black and white images do not benefit from the previous pixel-to-char function.
-- Testing. Much of these small improvements + file validation need testing.
-
+- Finished a simple webapp UI to upload files and retrieve result in the same page. As it is right now, the response from the API redirects to the webapp with the result once it's finished. I don't love this, I think the endpoint should know nothing about the web itself, and just return a json with the ASCII result. I imagine a lot of this could be less of a headache if I were using Django instead of a lightweight framework like fastapi. In any case, it was interesting to get fastapi to serve a small webapp like this one.
+- Working on this made me realize how much more comfortable I feel doing backend than frontend. Since working on the UI was quite fun, I want to expand it by adding two color pickers for the result; one for the background and one for the ASCII text. When I started planning on it, my head immediately wanted to grab the info provided by the color pickers, send them through the form, grab them in the backend and redirect the result, which is absolute nonsense. There has to be a way to actually change this on the fly. User-wise it makes a lot more sense since some larger images can take some time to process, and it would make the process feel very tedious.
+- It would also be cool to be able to set the character space on the frontend.
 
 #### 24/11/2022
 
@@ -229,9 +189,51 @@ Moving forward:
 - Swap black and white pixels to see how it affects the results.
 - Provide a prettier UI to upload source files and preview/download results.
 
-#### 25/11/2022
 
-Working on UI today. Started serving a small website where users can upload a file and get the ASCII result.
+#### 23/11/2022
 
-- The upload button should launch a POST request to `/images/` with the image, and the target width.
-- Once the text file is ready, the web should refresh itself with the text file contents. There has to be a way to set a dynamic font size to avoid having to scroll, either horizontally or vertically.
+##### Example:
+My initial implementation works for very simple images (think black and white `160x90` MS paint files), but not for anything else.
+
+Using the character space of `"i+tXZ*W$` and the following source image:
+
+![Test Input Image](docs/images/test.png)
+
+This is the result we achieve:
+
+```
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$WWW***WWW$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$***"""``````***$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ZZZtttZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$***```+++WWW"""ZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$WWWttt```iii"""+++WWW$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$iii```***$$$"""ZZZ$$$$$$$$$$$$ZZZtttZZZWWW$$$$$$$$$ZZZ```***$$$WWW"""+++WWW$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$***+++```"""```ZZZ$$$$$$$$$XXX```+++```ttt$$$$$$$$$ZZZ```+++WWWWWWZZZ```WWW$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$***ZZZZZZWWW$$$$$$$$$"""XXX$$$++++++$$$$$$$$$WWW***"""""""""""""""WWW$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ttt```+++```XXX$$$$$$$$$$$$$$$WWWWWWWWWWWWWWW$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$WWW************+++```XXXWWW$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$***+++```"""""""""""""""```""""""iii***$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$+++"""ZZZWWWWWWWWWWWWWWW*********ttt```ZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ZZZZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ttt```WWW$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$WWW"""ZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$iiiZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$WWWWWW$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+```
+
+##### Improvements:
+
+As it is right now, the things that need more work are:
+
+- A way to formalize output. Visualizing the terminal output generally does not work and copying the result to a text editor and using word wrap is clunky. The proposal is to send the result to a file with a max width/height, for viewing purposes.
+- Again, regarding the width/height of the resulting image, find a better way of resizing any file that comes in. Perhaps this needs two steps: One to make it smaller and easier to deal with, and one to output the result to something that makes sense. Filtering methods are important to take into account.
+- Images are currently stretched, because of the pixel/char size discrepancy. We need a way to make char representations more "square". Right now each character is written 3 times to compensate (`255` becomes `$` becomes `$$$`).
+- Experiment with pixel-to-char conversions. The current one is `(R+G+B)/3`, but perhaps it's not the best one.
+- Determine how to read file colors. I believe black and white images do not benefit from the previous pixel-to-char function.
+- Testing. Much of these small improvements + file validation need testing.
