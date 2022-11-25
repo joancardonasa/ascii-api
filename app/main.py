@@ -3,7 +3,7 @@ import os
 import uuid
 
 from fastapi import FastAPI, File, UploadFile, HTTPException, Request
-from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from PIL import Image, UnidentifiedImageError
 
@@ -14,18 +14,17 @@ logger = logging.getLogger(__name__)
 IMAGEDIR = 'tmp_images/'
 
 app = FastAPI()
-
+import urllib.parse
 
 @app.get('/')
-
 def read_root():
     return {'Hello': 'World'}
 
 
-@app.post('/images/')
+@app.post('/images')
 async def create_upload_file(
     file: UploadFile = File(...),
-    target_width: int = 160):
+    target_width: int = 140):
     file.filename = f'{uuid.uuid4()}'
     contents = await file.read()
 
@@ -42,10 +41,15 @@ async def create_upload_file(
     output_ascii_file = process_image(raw_im, target_width)
 
     # FIX: Outputs an HTML file
-    return FileResponse(output_ascii_file, media_type='text/plain')
+    #return FileResponse(output_ascii_file, media_type='text/plain')
+    return RedirectResponse(f"/web?ascii_file_url={output_ascii_file}", status_code=302)
 
 
 templates = Jinja2Templates(directory='templates')
-@app.get('/web/{name}', response_class=HTMLResponse)
-def read_item(request: Request, name: str):
-    return templates.TemplateResponse('index.html', {'request': request, 'name': name})
+@app.get('/web', response_class=HTMLResponse)
+def web_wrapper(request: Request, ascii_file_url: str=''):
+    text_output = ''
+    if ascii_file_url:
+        with open(ascii_file_url, 'r') as f:
+            text_output = f.read()
+    return templates.TemplateResponse('index.html', {'request': request, 'ascii_content': text_output})
