@@ -2,8 +2,9 @@ import logging
 import os
 import uuid
 
-from fastapi import FastAPI, File, UploadFile, HTTPException
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, File, UploadFile, HTTPException, Request
+from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.templating import Jinja2Templates
 from PIL import Image, UnidentifiedImageError
 
 from image_processing.processor import process_image
@@ -42,3 +43,9 @@ async def create_upload_file(
 
     # FIX: Outputs an HTML file
     return FileResponse(output_ascii_file, media_type='text/plain')
+
+
+templates = Jinja2Templates(directory='templates')
+@app.get('/web/{name}', response_class=HTMLResponse)
+def read_item(request: Request, name: str):
+    return templates.TemplateResponse('index.html', {'request': request, 'name': name})

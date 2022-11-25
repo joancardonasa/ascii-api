@@ -228,3 +228,10 @@ Moving forward:
 - Experiment with other pixel-to-char functions.
 - Swap black and white pixels to see how it affects the results.
 - Provide a prettier UI to upload source files and preview/download results.
+
+#### 25/11/2022
+
+Working on UI today. Started serving a small website where users can upload a file and get the ASCII result.
+
+- The upload button should launch a POST request to `/images/` with the image, and the target width.
+- Once the text file is ready, the web should refresh itself with the text file contents. There has to be a way to set a dynamic font size to avoid having to scroll, either horizontally or vertically.
