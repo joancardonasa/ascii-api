@@ -8,9 +8,14 @@ Simple API to convert images to ASCII built using FastAPI
 
 #### 25/11/2022
 
-- Finished a simple webapp UI to upload files and retrieve result in the same page. As it is right now, the response from the API redirects to the webapp with the result once it's finished. I don't love this, I think the endpoint should know nothing about the web itself, and just return a json with the ASCII result. I imagine a lot of this could be less of a headache if I were using Django instead of a lightweight framework like fastapi. In any case, it was interesting to get fastapi to serve a small webapp like this one.
-- Working on this made me realize how much more comfortable I feel doing backend than frontend. Since working on the UI was quite fun, I want to expand it by adding two color pickers for the result; one for the background and one for the ASCII text. When I started planning on it, my head immediately wanted to grab the info provided by the color pickers, send them through the form, grab them in the backend and redirect the result, which is absolute nonsense. There has to be a way to actually change this on the fly. User-wise it makes a lot more sense since some larger images can take some time to process, and it would make the process feel very tedious.
+- Finished a simple webapp UI to upload files and retrieve result in the same page. As it is right now, the response from the API redirects to the webapp with the result once it's finished. I don't love this, I think the endpoint should know nothing about the web itself, and just return a json with the ASCII result. I imagine a lot of this could be less of a headache if I were using something like Django. In any case, it was interesting to get fastapi to serve a small webapp like this one.
+- Working on this made me realize how much more comfortable I feel doing backend than frontend. Since working on the UI was quite fun, I want to expand it by adding two color pickers for the result; one for the background and one for the ASCII text. When I started planning on it, my head immediately wanted to grab the info provided by the color pickers, send them through the form, grab them in the backend and redirect the result, which is absolute nonsense. There has to be a way to actually change this on the fly. User-wise it makes a lot more sense since some larger images can take some time to process, and it would make the process feel very tedious. *Edit: I went ahead and did it. Turned out to be easier than I thought, with a bit of javascript to access the DOM.*
+
+![Demo](docs/images/ascii_generator_color_pick.gif)
+
 - It would also be cool to be able to set the character space on the frontend.
+
+
 
 #### 24/11/2022
 
