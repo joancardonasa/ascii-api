@@ -29,19 +29,16 @@
                 </h1>
             </div>
 
+
             <div class="row">
-                <!-- <div class="row  justify-content-md-center">
-                    <div class="col-6">
-                        <h3 class="col-" style="font-family: 'Josefin Sans', sans-serif;">Background
-                        </h3>
-                        <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c"
-                            title="Choose your color">
-                    </div>
-                    <div class="col-6">
-                        <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c"
-                            title="Choose your color">
-                    </div>
-                </div> -->
+                <div class="row">
+                    <h3 class="col-2" style="font-family: 'Josefin Sans', sans-serif;">Background</h3>
+                    <input type="color" class="form-control form-control-color col-2" id="colorbackground" value="#008080"
+                        title="Choose your color">
+                    <h3 class="col-2" style="font-family: 'Josefin Sans', sans-serif;">Text</h3>
+                    <input type="color" class="form-control form-control-color col-2" id="colortext" value="#00FF7F"
+                        title="Choose your color">
+                </div>
                 <div class="row">
                     <form method="post" action="http://localhost:80/images" enctype="multipart/form-data" target="_self"
                         class="input-group">
@@ -53,12 +50,24 @@
             </div>
 
             <div class="row text-center" style="margin-top: 3vh;">
-                <pre class="rounded" style="font-size: 3px; color: springgreen; background-color: teal;">
+                <pre class="rounded" id="ascii_result" style="font-size: 3px; color: springgreen; background-color: teal;">
                     <div>{{ascii_content}}</div>
                 </pre>
             </div>
 
         </div>
     </main>
+    <script>
+        let colorpicker_bg = document.getElementById('colorbackground');
+        let colorpicker_text = document.getElementById('colortext');
 
+        setInterval(() => {
+            let color_bg = colorpicker_bg.value;
+            let color_text = colorpicker_text.value;
+
+            let ascii_result = document.getElementById('ascii_result')
+            ascii_result.style.backgroundColor = color_bg;
+            ascii_result.style.color = color_text;
+        }, 50);
+    </script>
 </body>
